@@ -19,7 +19,7 @@ const ReferralPageClient = ({id} : {id: string}) => {
   const handleTap = () => {
     setIsTapped(true);
     if (id) {
-      navigator.clipboard.writeText(`http://t.me/BeestarKombat_bot/start?start=${id}`);
+      navigator.clipboard.writeText(`https://t.me/SimpsonsCryptoBot/start?start=${id}`);
     }
     setTimeout(() => setIsTapped(false), 2000); // Reset the tap animation after 2 seconds
   };
