@@ -19,13 +19,13 @@ const ReferralPage = () => {
   const [isTapped, setIsTapped] = useState(false);
   const [id, setId] = useState("");
 
-   const INVITE_URL = "https://t.me/BeestarKombat_bot/beestarkombat"
-  //  const INVITE_URL = 'https://t.me/beestar_devbot/start'
+   const INVITE_URL = "https://t.me/SimpsonsCryptoBot/Simpsons"
+  //  const INVITE_URL = 'https://t.me/SimpsonsCryptoBot/start'
 
   const handleTap = () => {
     setIsTapped(true);
     navigator.clipboard.writeText(
-      `http://t.me/BeestarKombat_bot/beestarkombat?startapp=${id}`
+      `http://t.me/SimpsonsCryptoBot/Simpsons?startapp=${id}`
     );
     setTimeout(() => setIsTapped(false), 2000); // Reset the tap animation after 200ms
   };
@@ -38,7 +38,7 @@ const ReferralPage = () => {
 
 
   const handleLick = () => {
-    window.location.href = `https://t.me/BeestarKombat_bot/start?start=${id}`
+    window.location.href = `https://t.me/SimpsonsCryptoBot/start?start=${id}`
   }
 
   const handleInviteFriend = () => {
