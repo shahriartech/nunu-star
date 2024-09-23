@@ -30,14 +30,14 @@ const LoadingScreen = () => {
                 <Image src="/newImages/sponsorImage.png" alt="icons" width={150} height={150} />
             </div>
             <div className="mx-auto text-xs  text-center">
-            Bee Trade Finance (BTF) is a decentralised cryptocurrency exchange with a centralised orderbook that allows multiple trades to be processed simultaneously by the system, without having to wait for all nodes to confirm each transaction individually.
+            Simpsons: $SIMP - Predictions! is a decentralised cryptocurrency exchange with a centralised orderbook that allows multiple trades to be processed simultaneously by the system, without having to wait for all nodes to confirm each transaction individually.
 
             </div>
             <div>
                 {/* {value}% */}
             </div>
             <div className="text-xs">
-            Powered  by Bee Trade Finance
+            Powered  by Simpsons: $SIMP - Predictions!
             </div>
         </main>
     )
