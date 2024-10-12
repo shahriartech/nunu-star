@@ -1,7 +1,7 @@
 'use client';
 
 import { usePointsStore } from "@/store/PointsStore";
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { useBoostersStore } from "@/store/useBoostrsStore"; // Corrected import path
 import SectionBanner from "@/components/sectionBanner";
 import CurrentPoints from "@/components/tasks/CurrentPoints";
@@ -42,7 +42,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ icon, title, buttonText, link, isCo
 };
 
 const AirDrop = () => {
-  const tasks = [
+  const initialTasks = [
     {
       icon: <FontAwesomeIcon icon={faTelegram} className="text-blue-500" />,
       title: "Telegram Channel: Resolved Builders",
@@ -87,6 +87,8 @@ const AirDrop = () => {
     },
   ];
 
+  const [tasks, setTasks] = useState(initialTasks);
+
   const { currentTapsLeft, increaseTapsLeft } = usePointsStore();
   const { multiClickLevel } = useBoostersStore();
 
@@ -113,6 +115,13 @@ const AirDrop = () => {
       // Update the database with the username and task completion status
       console.log(`Username: ${username} for task: ${taskTitle}`);
       // Add your database update logic here
+
+      // Mark the task as completed
+      setTasks(prevTasks =>
+        prevTasks.map(task =>
+          task.title === taskTitle ? { ...task, isCompleted: true } : task
+        )
+      );
     }
   };
 
@@ -127,7 +136,7 @@ const AirDrop = () => {
       <CurrentPoints />
       <div className="flex flex-col gap-2 mt-3">
         {tasks
-          .filter(task => task.buttonText !== "Get Airdrop" || task.link)
+          .filter(task => !task.isCompleted)
           .map((task, index) => (
             <TaskItem
               key={index}
