@@ -176,3 +176,23 @@ const AirDrop = () => {
 };
 
 export default AirDrop;
+// Ensure that the `Button` component can accept an `as` prop
+import { forwardRef } from "react";
+import { Button as OriginalButton, ButtonProps as OriginalButtonProps } from "@/components/ui/button";
+
+interface ButtonProps extends OriginalButtonProps {
+  as?: "a" | "button";
+  href?: string;
+  target?: string;
+}
+
+const Button = forwardRef<HTMLButtonElement, ButtonProps>(({ as = "button", ...props }, ref) => {
+  if (as === "a") {
+    return <a {...props} ref={ref as any} />;
+  }
+  return <OriginalButton {...props} ref={ref} />;
+});
+
+Button.displayName = "Button";
+
+export { Button };
