@@ -2,12 +2,12 @@
 
 import { usePointsStore } from "@/store/PointsStore";
 import React, { useEffect, useCallback, useState } from "react";
-import { useBoostersStore } from "@/store/useBoostrsStore"; // Corrected import path
+import { useBoostersStore } from "@/store/boostersStore"; // Corrected import path
 import SectionBanner from "@/components/sectionBanner";
 import CurrentPoints from "@/components/tasks/CurrentPoints";
 import * as button from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faKey, faUsers, faTrophy, faTasks, faCoins } from "@fortawesome/free-solid-svg-icons";
+// Removed unused imports
 import { faTelegram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 interface TaskItemProps {
