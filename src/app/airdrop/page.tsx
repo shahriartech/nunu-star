@@ -16,9 +16,10 @@ interface TaskItemProps {
   buttonText: string;
   link?: string;
   isCompleted: boolean;
+  onClick?: () => void;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ icon, title, buttonText, link, isCompleted }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ icon, title, buttonText, link, isCompleted, onClick }) => {
   if (isCompleted) return null;
 
   return (
@@ -28,11 +29,11 @@ const TaskItem: React.FC<TaskItemProps> = ({ icon, title, buttonText, link, isCo
         <span className="text-white text-xs">{title}</span>
       </div>
       {link ? (
-        <button.Button asChild className="text-xs">
+        <button.Button asChild className="text-xs" onClick={onClick}>
           <a href={link} target="_blank" rel="noopener noreferrer">{buttonText}</a>
         </button.Button>
       ) : (
-        <button.Button className="text-xs">
+        <button.Button className="text-xs" onClick={onClick}>
           {buttonText}
         </button.Button>
       )}
@@ -42,42 +43,6 @@ const TaskItem: React.FC<TaskItemProps> = ({ icon, title, buttonText, link, isCo
 
 const AirDrop = () => {
   const tasks = [
-    {
-      icon: <FontAwesomeIcon icon={faCoins} className="text-yellow-500" />,
-      title: "Passive Income",
-      buttonText: "Get Airdrop",
-      isCompleted: false,
-    },
-    {
-      icon: <FontAwesomeIcon icon={faTasks} className="text-green-500" />,
-      title: "Earn Task",
-      buttonText: "Get Airdrop",
-      isCompleted: false,
-    },
-    {
-      icon: <FontAwesomeIcon icon={faUsers} className="text-blue-500" />,
-      title: "Friends",
-      buttonText: "Get Airdrop",
-      isCompleted: false,
-    },
-    {
-      icon: <FontAwesomeIcon icon={faTrophy} className="text-orange-500" />,
-      title: "Achievement",
-      buttonText: "Get Airdrop",
-      isCompleted: false,
-    },
-    {
-      icon: <FontAwesomeIcon icon={faTelegram} className="text-purple-500" />,
-      title: "Telegram Subscription",
-      buttonText: "Get Airdrop",
-      isCompleted: false,
-    },
-    {
-      icon: <FontAwesomeIcon icon={faKey} className="text-red-500" />,
-      title: "Keys",
-      buttonText: "Get Airdrop",
-      isCompleted: false,
-    },
     {
       icon: <FontAwesomeIcon icon={faTelegram} className="text-blue-500" />,
       title: "Telegram Channel: Resolved Builders",
@@ -142,6 +107,15 @@ const AirDrop = () => {
     return () => clearInterval(intervalId);
   }, [updateTapsLeft]);
 
+  const handleTwitterTaskClick = (taskTitle: string) => {
+    const username = prompt(`Please enter your Twitter username for the task: ${taskTitle}`);
+    if (username) {
+      // Update the database with the username and task completion status
+      console.log(`Username: ${username} for task: ${taskTitle}`);
+      // Add your database update logic here
+    }
+  };
+
   return (
     <div className="w-full mx-auto text-white ">
       <SectionBanner
@@ -152,16 +126,19 @@ const AirDrop = () => {
       />
       <CurrentPoints />
       <div className="flex flex-col gap-2 mt-3">
-        {tasks.map((task, index) => (
-          <TaskItem
-            key={index}
-            icon={task.icon}
-            title={task.title}
-            buttonText={task.buttonText}
-            link={task.link}
-            isCompleted={task.isCompleted}
-          />
-        ))}
+        {tasks
+          .filter(task => task.buttonText !== "Get Airdrop" || task.link)
+          .map((task, index) => (
+            <TaskItem
+              key={index}
+              icon={task.icon}
+              title={task.title}
+              buttonText={task.buttonText}
+              link={task.link}
+              isCompleted={task.isCompleted}
+              onClick={task.title.includes("Twitter") ? () => handleTwitterTaskClick(task.title) : undefined}
+            />
+          ))}
       </div>
     </div>
   );
