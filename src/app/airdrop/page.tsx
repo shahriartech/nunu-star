@@ -1,4 +1,5 @@
 `use client`;
+
 import { usePointsStore } from "@/store/PointsStore";
 import React, { useEffect, useCallback } from "react";
 import { useBoostersStore } from "@/store/useBoostrsStore"; // Corrected import path
