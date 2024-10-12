@@ -103,7 +103,7 @@ const ReferralPageClient = ({id} : {id: string}) => {
             
             // description="Join Beestar Kombat through my link and get rewards when you sign up!"
             // image="https://yourdomain.com/path-to-image.jpg" // Replace with the actual image URL
-             style={{ width: '100%' }} url={`https://beestar-kombat-omega.vercel.app/referrals?id=${id}`}>
+             style={{ width: '100%' }} url={`https://nunu-star.vercel.app/referrals?id=${id}`}>
               Invite a friend
             </TelegramShareButton>
           ) : (

@@ -92,7 +92,7 @@ const MenuGrid = () => {
   const onReward = useCallback(() => {
     const reward = 5000 * (adsWatched + 1); // Reward increases by 5000 with each ad
     toast.loading('Claiming reward...');
-    axios.get(`https://beestar-kombat-omega.vercel.app/api/reward?userid=${id}`)
+    axios.get(`https://nunu-star.vercel.app/api/reward?userid=${id}`)
       .then((response) => {
         toast.dismiss();
         toast.success(response.data.message || `Reward claimed successfully: ${reward} points`);
@@ -113,7 +113,7 @@ const MenuGrid = () => {
 
   const router = useRouter();
 
-  const showAd = useAdsgram({ blockId: "2794", onReward, onError });
+  const showAd = useAdsgram({ blockId: "4159", onReward, onError });
 
   // Function to check if the user has reached the ad view limit
   const handleAdClick = () => {
