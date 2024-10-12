@@ -113,7 +113,7 @@ const MenuGrid = () => {
 
   const router = useRouter();
 
-  const showAd = useAdsgram({ blockId: "3476", onReward, onError });
+  const showAd = useAdsgram({ blockId: "4154", onReward, onError });
 
   // Function to check if the user has reached the ad view limit
   const handleAdClick = () => {
