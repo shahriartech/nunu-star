@@ -2,12 +2,11 @@
 
 import { usePointsStore } from "@/store/PointsStore";
 import React, { useEffect, useCallback, useState } from "react";
-import { useBoostersStore } from "@/store/boostersStore"; // Corrected import path
+import { useBoostersStore } from "@/store/useBoostrsStore";
 import SectionBanner from "@/components/sectionBanner";
 import CurrentPoints from "@/components/tasks/CurrentPoints";
 import * as button from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// Removed unused imports
 import { faTelegram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 interface TaskItemProps {
@@ -87,7 +86,10 @@ const AirDrop = () => {
     },
   ];
 
-  const [tasks, setTasks] = useState(initialTasks);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = window.localStorage.getItem("tasks");
+    return savedTasks ? JSON.parse(savedTasks) : initialTasks;
+  });
 
   const { currentTapsLeft, increaseTapsLeft } = usePointsStore();
   const { multiClickLevel } = useBoostersStore();
@@ -112,16 +114,14 @@ const AirDrop = () => {
   const handleTwitterTaskClick = (taskTitle: string) => {
     const username = prompt(`Please enter your Twitter username for the task: ${taskTitle}`);
     if (username) {
-      // Update the database with the username and task completion status
       console.log(`Username: ${username} for task: ${taskTitle}`);
-      // Add your database update logic here
 
-      // Mark the task as completed
-      setTasks(prevTasks =>
-        prevTasks.map(task =>
-          task.title === taskTitle ? { ...task, isCompleted: true } : task
-        )
+      // Mark the task as completed and persist to localStorage
+      const updatedTasks = tasks.map(task =>
+        task.title === taskTitle ? { ...task, isCompleted: true } : task
       );
+      setTasks(updatedTasks);
+      window.localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   };
 
