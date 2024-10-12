@@ -40,8 +40,16 @@ const TaskItem: React.FC<TaskItemProps> = ({ icon, title, buttonText, link, isCo
   );
 };
 
+interface Task {
+  icon: JSX.Element;
+  title: string;
+  buttonText: string;
+  link?: string;
+  isCompleted: boolean;
+}
+
 const AirDrop = () => {
-  const initialTasks = [
+  const initialTasks: Task[] = [
     {
       icon: <FontAwesomeIcon icon={faTelegram} className="text-blue-500" />,
       title: "Telegram Channel: Resolved Builders",
@@ -86,7 +94,7 @@ const AirDrop = () => {
     },
   ];
 
-  const [tasks, setTasks] = useState(() => {
+  const [tasks, setTasks] = useState<Task[]>(() => {
     const savedTasks = window.localStorage.getItem("tasks");
     return savedTasks ? JSON.parse(savedTasks) : initialTasks;
   });
