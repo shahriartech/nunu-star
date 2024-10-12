@@ -26,8 +26,8 @@ const TaskItem: React.FC<TaskItemProps> = ({ iconSrc, title, buttonText, link })
           <span className="text-white text-xs">{title}</span>
         </div>
         {link ? (
-          <Button as="a" href={link} target="_blank" className="text-xs">
-            {buttonText}
+          <Button asChild className="text-xs">
+            <a href={link} target="_blank" rel="noopener noreferrer">{buttonText}</a>
           </Button>
         ) : (
           <Button onClick={() => setIsDrawerOpen(true)} className="text-xs">
@@ -44,7 +44,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ iconSrc, title, buttonText, link })
             <div className="p-3 px-5 bg-[#252423] rounded-full">x</div>
           </DrawerHeader>
           <div className="text-center">
-            <h2 className="text-2xl font-medium text-white mb-2">Comming Soon</h2>
+            <h2 className="text-2xl font-medium text-white mb-2">Coming Soon</h2>
           </div>
           <DrawerFooter>
             <Button
@@ -149,7 +149,7 @@ const AirDrop = () => {
     }, 1000); // Adjust interval as needed
 
     return () => clearInterval(intervalId);
-  }, [currentTapsLeft]);
+  }, [currentTapsLeft, increaseTapsLeft, multiClickLevel]);
 
   return (
     <div className="w-full mx-auto text-white ">
