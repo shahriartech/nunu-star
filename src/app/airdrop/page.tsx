@@ -6,7 +6,7 @@ import React, { useEffect } from "react";
 import { useBoostersStore } from "@/store/useBoostrsStore";
 import SectionBanner from "@/components/sectionBanner";
 import CurrentPoints from "@/components/tasks/CurrentPoints";
-// import { Button } from "@/components/ui/button"; // Commented out to avoid duplicate definition
+import { Button } from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerFooter, DrawerHeader } from "@/components/ui/drawer";
 
 interface TaskItemProps {
@@ -44,7 +44,7 @@ const TaskItem: React.FC<TaskItemProps> = ({ iconSrc, title, buttonText, link })
             <div className="p-3 px-5 bg-[#252423] rounded-full">x</div>
           </DrawerHeader>
           <div className="text-center">
-            <h2 className="text-2xl font-medium text-white mb-2">Coming Soon</h2>
+            <h2 className="text-2xl font-medium text-white mb-2">Comming Soon</h2>
           </div>
           <DrawerFooter>
             <Button
@@ -77,7 +77,7 @@ const AirDrop = () => {
       buttonText: "Get Airdrop",
     },
     {
-      iconSrc: "/icons/achievements.png",
+      iconSrc: "/icons/achivements.png",
       title: "Achievement",
       buttonText: "Get Airdrop",
     },
@@ -111,19 +111,19 @@ const AirDrop = () => {
     },
     {
       iconSrc: "/icons/twitter.png",
-      title: "Tweet: Support Likhon Docs",
+      title: "Tweet: Support LikhonDocs",
       buttonText: "View Tweet",
       link: "https://x.com/likhondocs/status/1844934909686841464?s=46",
     },
     {
       iconSrc: "/icons/twitter.png",
-      title: "Founder: Likhon Docs on Twitter",
+      title: "Founder: LikhonDocs on Twitter",
       buttonText: "Follow Founder",
       link: "https://x.com/likhondocs",
     },
     {
       iconSrc: "/icons/telegram.png",
-      title: "Founder Channel: Rex Cheat",
+      title: "Founder Channel: Rexx Cheat",
       buttonText: "Join Channel",
       link: "https://t.me/RexxCheat",
     },
@@ -176,23 +176,3 @@ const AirDrop = () => {
 };
 
 export default AirDrop;
-// Ensure that the `Button` component can accept an `as` prop
-import { forwardRef } from "react";
-import { Button as OriginalButton, ButtonProps as OriginalButtonProps } from "@/components/ui/button";
-
-interface ButtonProps extends OriginalButtonProps {
-  as?: "a" | "button";
-  href?: string;
-  target?: string;
-}
-
-const Button = forwardRef<HTMLAnchorElement & HTMLButtonElement, ButtonProps>(({ as = "button", ...props }, ref) => {
-  if (as === "a") {
-    return <a {...props} ref={ref as React.Ref<HTMLAnchorElement>} />;
-  }
-  return <OriginalButton {...props} ref={ref as React.Ref<HTMLButtonElement>} />;
-});
-
-Button.displayName = "Button";
-
-export { Button };
