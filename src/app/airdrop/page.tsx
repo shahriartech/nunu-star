@@ -6,7 +6,6 @@ import { useBoostersStore } from "@/store/useBoostrsStore"; // Corrected import 
 import SectionBanner from "@/components/sectionBanner";
 import CurrentPoints from "@/components/tasks/CurrentPoints";
 import * as button from "@/components/ui/button";
-import { Drawer, DrawerContent, DrawerFooter, DrawerHeader } from "@/components/ui/drawer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faKey, faUsers, faTrophy, faTasks, faCoins } from "@fortawesome/free-solid-svg-icons";
 import { faTelegram, faTwitter } from "@fortawesome/free-brands-svg-icons";
@@ -20,47 +19,24 @@ interface TaskItemProps {
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({ icon, title, buttonText, link, isCompleted }) => {
-  const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
   if (isCompleted) return null;
 
   return (
-    <>
-      <div className="flex justify-between items-center p-2 rounded-lg border border-[#504949]">
-        <div className="flex items-center gap-4">
-          {icon}
-          <span className="text-white text-xs">{title}</span>
-        </div>
-        {link ? (
-          <button.Button asChild className="text-xs">
-            <a href={link} target="_blank" rel="noopener noreferrer">{buttonText}</a>
-          </button.Button>
-        ) : (
-          <button.Button onClick={() => setIsDrawerOpen(true)} className="text-xs">
-            {buttonText}
-          </button.Button>
-        )}
+    <div className="flex justify-between items-center p-2 rounded-lg border border-[#504949]">
+      <div className="flex items-center gap-4">
+        {icon}
+        <span className="text-white text-xs">{title}</span>
       </div>
-      <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
-        <DrawerContent className="bg-[#14161a] border-none ">
-          <DrawerHeader
-            onClick={() => setIsDrawerOpen(false)}
-            className="flex text-white rounded-full justify-end  mr-0  w-full  items-center"
-          >
-            <div className="p-3 px-5 bg-[#252423] rounded-full">x</div>
-          </DrawerHeader>
-          <div className="text-center">
-            <h2 className="text-2xl font-medium text-white mb-2">Coming Soon</h2>
-          </div>
-          <DrawerFooter>
-            <button.Button
-              className="w-full py-8 bg-custom-orange text-zinc-700 text-xl rounded-lg hover:bg-yellow-700"
-            >
-              {"Go ahead"}
-            </button.Button>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    </>
+      {link ? (
+        <button.Button asChild className="text-xs">
+          <a href={link} target="_blank" rel="noopener noreferrer">{buttonText}</a>
+        </button.Button>
+      ) : (
+        <button.Button className="text-xs">
+          {buttonText}
+        </button.Button>
+      )}
+    </div>
   );
 };
 
