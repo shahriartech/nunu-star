@@ -1,38 +1,42 @@
-"use client";
+`use client`;
 import { usePointsStore } from "@/store/PointsStore";
-import { BeeCoin, SponsorImage, tonWallet } from "../../../public/newImages";
-import Image from "next/image";
-import React, { useEffect } from "react";
-import { useBoostersStore } from "@/store/useBoostrsStore";
+import React, { useEffect, useCallback } from "react";
+import { useBoostersStore } from "@/store/useBoostrsStore"; // Corrected import path
 import SectionBanner from "@/components/sectionBanner";
 import CurrentPoints from "@/components/tasks/CurrentPoints";
-import { Button } from "@/components/ui/button";
+import * as button from "@/components/ui/button";
 import { Drawer, DrawerContent, DrawerFooter, DrawerHeader } from "@/components/ui/drawer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faKey, faUsers, faTrophy, faTasks, faCoins } from "@fortawesome/free-solid-svg-icons";
+import { faTelegram, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 interface TaskItemProps {
-  iconSrc: string;
+  icon: JSX.Element;
   title: string;
   buttonText: string;
   link?: string;
+  isCompleted: boolean;
 }
 
-const TaskItem: React.FC<TaskItemProps> = ({ iconSrc, title, buttonText, link }) => {
+const TaskItem: React.FC<TaskItemProps> = ({ icon, title, buttonText, link, isCompleted }) => {
   const [isDrawerOpen, setIsDrawerOpen] = React.useState(false);
+  if (isCompleted) return null;
+
   return (
     <>
       <div className="flex justify-between items-center p-2 rounded-lg border border-[#504949]">
         <div className="flex items-center gap-4">
-          <Image src={iconSrc} alt={title} width={20} height={20} />
+          {icon}
           <span className="text-white text-xs">{title}</span>
         </div>
         {link ? (
-          <Button asChild className="text-xs">
+          <button.Button asChild className="text-xs">
             <a href={link} target="_blank" rel="noopener noreferrer">{buttonText}</a>
-          </Button>
+          </button.Button>
         ) : (
-          <Button onClick={() => setIsDrawerOpen(true)} className="text-xs">
+          <button.Button onClick={() => setIsDrawerOpen(true)} className="text-xs">
             {buttonText}
-          </Button>
+          </button.Button>
         )}
       </div>
       <Drawer open={isDrawerOpen} onClose={() => setIsDrawerOpen(false)}>
@@ -47,11 +51,11 @@ const TaskItem: React.FC<TaskItemProps> = ({ iconSrc, title, buttonText, link })
             <h2 className="text-2xl font-medium text-white mb-2">Coming Soon</h2>
           </div>
           <DrawerFooter>
-            <Button
+            <button.Button
               className="w-full py-8 bg-custom-orange text-zinc-700 text-xl rounded-lg hover:bg-yellow-700"
             >
               {"Go ahead"}
-            </Button>
+            </button.Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
@@ -62,94 +66,104 @@ const TaskItem: React.FC<TaskItemProps> = ({ iconSrc, title, buttonText, link })
 const AirDrop = () => {
   const tasks = [
     {
-      iconSrc: "/icons/passive-income.png",
+      icon: <FontAwesomeIcon icon={faCoins} className="text-yellow-500" />,
       title: "Passive Income",
       buttonText: "Get Airdrop",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/earn-task.png",
+      icon: <FontAwesomeIcon icon={faTasks} className="text-green-500" />,
       title: "Earn Task",
       buttonText: "Get Airdrop",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/friends.png",
+      icon: <FontAwesomeIcon icon={faUsers} className="text-blue-500" />,
       title: "Friends",
       buttonText: "Get Airdrop",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/achivements.png",
+      icon: <FontAwesomeIcon icon={faTrophy} className="text-orange-500" />,
       title: "Achievement",
       buttonText: "Get Airdrop",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/telegram.png",
+      icon: <FontAwesomeIcon icon={faTelegram} className="text-purple-500" />,
       title: "Telegram Subscription",
       buttonText: "Get Airdrop",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/key.png",
+      icon: <FontAwesomeIcon icon={faKey} className="text-red-500" />,
       title: "Keys",
       buttonText: "Get Airdrop",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/telegram.png",
+      icon: <FontAwesomeIcon icon={faTelegram} className="text-blue-500" />,
       title: "Telegram Channel: Resolved Builders",
       buttonText: "Join Now",
       link: "https://t.me/ResolvedBuilders",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/twitter.png",
+      icon: <FontAwesomeIcon icon={faTwitter} className="text-blue-400" />,
       title: "Twitter Community",
       buttonText: "Join Now",
       link: "https://x.com/i/communities/1844915754887790812",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/telegram.png",
+      icon: <FontAwesomeIcon icon={faTelegram} className="text-purple-500" />,
       title: "Telegram Chat: Resolved Success",
       buttonText: "Join Now",
       link: "https://t.me/ResolvedSuccess",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/twitter.png",
+      icon: <FontAwesomeIcon icon={faTwitter} className="text-blue-400" />,
       title: "Tweet: Support LikhonDocs",
       buttonText: "View Tweet",
       link: "https://x.com/likhondocs/status/1844934909686841464?s=46",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/twitter.png",
+      icon: <FontAwesomeIcon icon={faTwitter} className="text-blue-400" />,
       title: "Founder: LikhonDocs on Twitter",
       buttonText: "Follow Founder",
       link: "https://x.com/likhondocs",
+      isCompleted: false,
     },
     {
-      iconSrc: "/icons/telegram.png",
+      icon: <FontAwesomeIcon icon={faTelegram} className="text-purple-500" />,
       title: "Founder Channel: Rexx Cheat",
       buttonText: "Join Channel",
       link: "https://t.me/RexxCheat",
+      isCompleted: false,
     },
   ];
 
   const { currentTapsLeft, increaseTapsLeft } = usePointsStore();
   const { multiClickLevel } = useBoostersStore();
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      increaseTapsLeft();
-      let time = Date.now();
-      window.localStorage.setItem("lastLoginTime", time.toString());
-      const local = parseInt(
-        window.localStorage.getItem("currentTapsLeft") ?? "0"
-      );
 
-      if (local < currentTapsLeft && !isNaN(currentTapsLeft)) {
-        window.localStorage.setItem(
-          "currentTapsLeft",
-          (currentTapsLeft + multiClickLevel).toString()
-        );
-      }
-    }, 1000); // Adjust interval as needed
+  const updateTapsLeft = useCallback(() => {
+    increaseTapsLeft();
+    let time = Date.now();
+    window.localStorage.setItem("lastLoginTime", time.toString());
+    const local = parseInt(window.localStorage.getItem("currentTapsLeft") ?? "0");
+
+    if (local < currentTapsLeft && !isNaN(currentTapsLeft)) {
+      window.localStorage.setItem("currentTapsLeft", (currentTapsLeft + multiClickLevel).toString());
+    }
+  }, [currentTapsLeft, increaseTapsLeft, multiClickLevel]);
+
+  useEffect(() => {
+    const intervalId = setInterval(updateTapsLeft, 1000); // Adjust interval as needed
 
     return () => clearInterval(intervalId);
-  }, [currentTapsLeft, increaseTapsLeft, multiClickLevel]);
+  }, [updateTapsLeft]);
 
   return (
     <div className="w-full mx-auto text-white ">
@@ -164,10 +178,11 @@ const AirDrop = () => {
         {tasks.map((task, index) => (
           <TaskItem
             key={index}
-            iconSrc={task.iconSrc}
+            icon={task.icon}
             title={task.title}
             buttonText={task.buttonText}
             link={task.link}
+            isCompleted={task.isCompleted}
           />
         ))}
       </div>
